@@ -28,6 +28,10 @@ export const useNotesStore = defineStore('notes', {
   },
 
   actions: {
+    async getNotesList() {
+      
+    },
+
     addNewNote(newNote: string) {
       const date = dayjs()
       this.notesList.unshift({

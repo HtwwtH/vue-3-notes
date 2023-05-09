@@ -29,9 +29,17 @@
 import NoteCard from '@/components/Notes/NoteCard.vue'
 import AddEditNote from '@/components/Notes/AddEditNote.vue'
 import { useNotesStore } from '@/stores/notes'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const notesStore = useNotesStore()
+
+onMounted(async () => {
+  // await notesStore.getNotesList()
+  const response = await fetch("http://localhost:3000/api/records")
+  console.log(response)
+  const data = await response.json()
+  console.log(data)
+})
 
 const newNote = ref('')
 const addEditNoteRef = ref<null | { focusTextArea: () => null }>(null)

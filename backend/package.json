@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node app",
     "dev": "nodemon app"
@@ -18,7 +19,8 @@
   },
   "homepage": "https://github.com/HtwwtH/vue-3-notes#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^7.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

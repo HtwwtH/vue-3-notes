@@ -36,7 +36,7 @@ export const useNotesStore = defineStore('notes', {
       const date = dayjs()
       this.notesList.unshift({
         id: uuid.v4(),
-        date,
+        date: date.format('D.M.YYYY, H:m'),
         content: newNote
       })
     },

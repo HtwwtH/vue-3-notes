@@ -53,7 +53,7 @@ import { reactive, computed } from 'vue'
   })
 
   const dateFormatted = computed(() => {
-    return props.note.date.format('D.M.YYYY, H:m')
+    return props.note.date
   })
 
   const modals = reactive({

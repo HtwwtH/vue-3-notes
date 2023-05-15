@@ -40,8 +40,8 @@ const notesStore = useNotesStore()
 const noteContent = ref('')
 noteContent.value = notesStore.getNoteContent(route.params.id)
 
-const saveNote = () => {
-  notesStore.saveEditedNote(route.params.id, noteContent.value)
+const saveNote = async () => {
+  await notesStore.saveEditedNote(route.params.id, noteContent.value)
   router.push('/')
 }
 </script>

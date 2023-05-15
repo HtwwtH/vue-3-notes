@@ -1,9 +1,9 @@
 import NoteService from '../services/NoteService.js'
 
 class NoteController {
-  async postRecord(req, res) {
+  async postNote(req, res) {
     try {
-      const note = await NoteService.postRecord(req.body)
+      const note = await NoteService.postNote(req.body)
       return res.status(200).json({ message: 'Запись сохранена', note })
     } catch(e) {
       res.status(500).json(e)

@@ -1,7 +1,7 @@
 import Note from '../schemas/Note.js'
 
 class NoteService {
-  async postRecord(note) {
+  async postNote(note) {
     const createdNote = await Note.create(note)
     return createdNote
   }

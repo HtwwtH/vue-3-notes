@@ -28,23 +28,20 @@
 <script setup lang="ts">
 import NoteCard from '@/components/Notes/NoteCard.vue'
 import AddEditNote from '@/components/Notes/AddEditNote.vue'
-import http from '@/http'
 import { useNotesStore } from '@/stores/notes'
 import { ref, watch, onMounted } from 'vue'
 
 const notesStore = useNotesStore()
 
 onMounted(async () => {
-  // await notesStore.getNotesList()
-  const response = await http.get("notes")
-  console.log(response)
+  await notesStore.setNotesList()
 })
 
 const newNote = ref('')
 const addEditNoteRef = ref<null | { focusTextArea: () => null }>(null)
 
-const addNewNote = () => {
-  notesStore.addNewNote(newNote.value)
+const addNewNote = async () => {
+  await notesStore.addNewNote(newNote.value)
   newNote.value = ''
   addEditNoteRef.value?.focusTextArea()
 }

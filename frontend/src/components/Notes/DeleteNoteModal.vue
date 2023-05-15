@@ -20,7 +20,7 @@
           Cancel
         </button>
         <button
-          @click="notesStore.deleteNote(noteId)"
+          @click="deleteNote(noteId)"
           class="button is-success"
         >
           Yes, delete
@@ -51,6 +51,10 @@ const notesStore = useNotesStore()
 const modalCardRef = ref(null)
 
 onClickOutside(modalCardRef, () => closeModal())
+
+const deleteNote = async(noteId: string) => {
+  await notesStore.deleteNote(noteId)
+}
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Boolean): void

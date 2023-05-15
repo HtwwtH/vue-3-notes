@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import dayjs from 'dayjs'
-import { uuid } from 'vue-uuid'
 
-import type { Note } from "./interfaces/note"
+import { getNotes, postNote, putNote, deleteNote } from '@/http/api'
+
+import type { Note, BDNote } from "@/interfaces/note"
 
 export type RootState = {
   notesList: Note[];
@@ -28,30 +29,46 @@ export const useNotesStore = defineStore('notes', {
   },
 
   actions: {
-    async getNotesList() {
-      
-    },
-
-    addNewNote(newNote: string) {
-      const date = dayjs()
-      this.notesList.unshift({
-        id: uuid.v4(),
-        date: date.format('D.M.YYYY, H:m'),
-        content: newNote
+    async setNotesList() {
+      const list: BDNote[] = await getNotes()
+      this.notesList = list.map(item => ({
+        id: item._id,
+        date: item.date,
+        content: item.content
+      })).sort( (x, y) => {
+      if (x.date > y.date) {
+        return -1;
+      }
+      if (y.date > x.date) {
+        return 1;
+      }
+        return 0;
       })
     },
 
-    deleteNote(id: string) {
-      this.notesList = this.notesList.filter(note => note.id !== id)
+    async addNewNote(newNote: string) {
+      const date = dayjs()
+      const note = {
+        date: date.format('D.M.YYYY, H:m'),
+        content: newNote
+      }
+      const postedNote = await postNote(note)
+      this.notesList.unshift(postedNote.note)
     },
 
-    saveEditedNote(id: string | string[], content: string) {
-      console.log(id)
-      console.log(content)
+    async deleteNote(id: string) {
+      this.notesList = this.notesList.filter(note => note.id !== id)
+      await deleteNote(id)
+    },
 
+    async saveEditedNote(id: string | string[], content: string) {
       const index = this.notesList.findIndex(note => note.id === id)
-      console.log(index)
       this.notesList[index].content = content
+      await putNote(id, {
+        _id: id,
+        content,
+        date: this.notesList[index].date
+      })
     }
   },
 })

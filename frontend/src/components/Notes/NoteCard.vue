@@ -4,11 +4,11 @@
   >
     <div class="card-content">
       <div class="content">
-        <div class="has-text-right has-text-grey-light mt-2">
+        <div class="has-text-right has-text-grey-light mt-2" data-testId="dateFormatted">
           {{ dateFormatted }}
         </div>
         {{ note.content }}
-        <div class="has-text-right has-text-grey-light mt-2">
+        <div class="has-text-right has-text-grey-light mt-2" data-testId="symbolsAmount">
           {{ symbolsAmount }}
         </div>
       </div>
@@ -24,6 +24,7 @@
         @click.prevent="modals.deleteNote = true"
         href="#"
         class="card-footer-item"
+        data-testId="deleteBtn"
       >Delete</a>
     </footer>
 
